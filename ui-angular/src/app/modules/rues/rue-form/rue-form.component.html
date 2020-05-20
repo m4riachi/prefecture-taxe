@@ -1,0 +1,24 @@
+<h1 class="mt-5 mb-5">
+  {{ id == null ? 'Crée une Rue' : 'Modifier Rue' }}
+</h1>
+<ngb-alert [hidden]="this.service.errorMessage == ''" type="danger" (close)="this.service.errorMessage = ''">{{ this.service.errorMessage }}</ngb-alert>
+<div [hidden]="!service.isLoading" class="w100 mb-2">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div [hidden]="service.isLoading" class="card-body"  *ngIf="service.rue">
+  <div class="form-group">
+    <label for="exampleNameSelect">Quartier</label>
+    <select class="form-control" id="exampleNameSelect" [(ngModel)]="service.rue.quartier.id">
+      <option value="0">-- Choisir --</option>
+      <option *ngFor="let quartier of service.listQuartier" [value]="quartier.id">{{ quartier.nom }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleName">Nom</label>
+    <input type="text" [(ngModel)]="service.rue.nom" class="form-control" id="exampleName" placeholder="Enter le nom" />
+  </div>
+  <button type="submit" class="btn btn-block btn-primary" (click)="save()">{{ id == null ? 'Crée une Rue' : 'Modifier Rue' }}</button>
+</div>
+
