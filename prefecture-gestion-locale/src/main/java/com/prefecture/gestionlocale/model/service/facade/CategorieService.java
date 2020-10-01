@@ -14,4 +14,6 @@ public interface CategorieService {
     ResponseEntity<?> delete(Long id);
 
     ResponseEntity<?> read(Long id);
+    
+    ResponseEntity<?> dataForSelect();
 }

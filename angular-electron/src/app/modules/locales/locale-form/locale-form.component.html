@@ -1,0 +1,60 @@
+<h1 class="mt-5 mb-5">
+  {{ id == null ? 'Crée un Locale' : 'Modifier Locale' }}
+</h1>
+<ngb-alert [hidden]="this.service.errorMessage == ''" type="danger" (close)="this.service.errorMessage = ''">
+  {{ this.service.errorMessage }}</ngb-alert>
+<div [hidden]="!service.isLoading" class="w100 mb-2">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div [hidden]="service.isLoading" class="card-body" *ngIf="service.locale">
+  <div class="form-group">
+    <label for="exampleNameSelect">Quartier</label>
+    <select class="form-control" id="exampleNameSelect" (change)="getRue()"
+      [(ngModel)]="service.locale.rue.quartier.id">
+      <option value="0">-- Choisir --</option>
+      <option *ngFor="let quartier of service.listQuartier" [value]="quartier.id">{{ quartier.nom }}</option>
+    </select>
+    <select class="form-control mt-3" id="exampleNameSelect" [(ngModel)]="service.locale.rue.id">
+      <option value="0">-- Choisir la Rue --</option>
+      <option *ngFor="let rue of service.listRue" [value]="rue.id">{{ rue.nom }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleNameSelect">Catégories</label>
+    <select class="form-control" id="exampleNameSelect" [(ngModel)]="service.locale.categorie.id">
+      <option value="0">-- Choisir --</option>
+      <option *ngFor="let categorie of service.listCategorie" [value]="categorie.id">{{ categorie.nom }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleNameSelect">Redevables</label>
+    <select class="form-control" id="exampleNameSelect" [(ngModel)]="service.locale.redevable.id">
+      <option value="0">-- Choisir --</option>
+      <option *ngFor="let redevable of service.listRedevable" [value]="redevable.id">{{ redevable.nom }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleName">Nom</label>
+    <input type="text" [(ngModel)]="service.locale.nom" class="form-control" id="exampleName"
+      placeholder="Enter le nom" />
+  </div>
+  <div class="form-group">
+    <label for="exampleIce">Ice</label>
+    <input type="text" [(ngModel)]="service.locale.ice" class="form-control" id="exampleIce"
+      placeholder="Enter le ice" />
+  </div>
+  <div class="form-group">
+    <label for="exampleDateCreation">Date Création</label>
+    <input type="text" [(ngModel)]="service.locale.dateCreation" readonly class="form-control" id="exampleDateCreation"
+      placeholder="Enter la date création" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+  </div>
+  <div class="form-group">
+    <label for="exampleDateCreation">Date Férmeture</label>
+    <input type="text" [(ngModel)]="service.locale.dateFermeture" readonly class="form-control" id="exampleDateCreation"
+      placeholder="Enter la date férmeture" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
+  </div>
+  <button type="submit" class="btn btn-block btn-primary"
+    (click)="save()">{{ id == null ? 'Crée un Locale' : 'Modifier Locale' }}</button>
+</div>

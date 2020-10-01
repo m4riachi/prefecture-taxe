@@ -14,4 +14,6 @@ public interface RueService {
     ResponseEntity<?> delete(Long id);
 
     ResponseEntity<?> read(Long id);
+    
+    ResponseEntity<?> dataForSelect(Long quartierId);
 }

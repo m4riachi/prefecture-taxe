@@ -32,12 +32,12 @@ public class Locale {
 	private int dernierAnneeTaxeBoisson;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	@NotNull
 	private Date dateCreation;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateFermeture;
 
 	@ManyToOne

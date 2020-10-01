@@ -39,4 +39,9 @@ public class CategorieRest {
     public ResponseEntity<?> read(@PathVariable Long id) {
         return categorieService.read(id);
     }
+    
+    @GetMapping("/data-for-select")
+    public ResponseEntity<?> dataForSelect() {
+        return categorieService.dataForSelect();
+    }
 }

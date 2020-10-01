@@ -42,4 +42,9 @@ public class RueRest {
     public ResponseEntity<?> read(@PathVariable Long id) {
         return rueService.read(id);
     }
+    
+    @GetMapping("/data-for-select/{id}/quartier")
+    public ResponseEntity<?> dataForSelect(@PathVariable Long id) {
+        return rueService.dataForSelect(id);
+    }
 }

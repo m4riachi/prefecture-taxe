@@ -7,6 +7,7 @@ import com.prefecture.gestionlocale.model.ws.exception.BeanNotFoundException;
 import com.prefecture.gestionlocale.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,10 @@ public class RedevableImpl implements RedevableService {
 
     public ResponseEntity<?> read(Long id) {
         return helper.response(HttpStatus.OK, true, checkId(id));
+    }
+
+    public ResponseEntity<?> dataForSelect() {
+        return helper.response(HttpStatus.OK, true,
+                helper.objectFilter("QuartierFilter", redevableDao.findAll(Sort.by(Sort.Direction.ASC, "nom")), "id", "nom") );
     }
 }

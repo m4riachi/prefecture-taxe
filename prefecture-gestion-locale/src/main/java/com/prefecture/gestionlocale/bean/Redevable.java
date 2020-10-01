@@ -21,9 +21,7 @@ public class Redevable{
 	@NotNull
 	private String cin;
 
-	@ValueOfEnum(enumClass = RedevableType.class)
-	private String type;
-
+	private RedevableType type;
 
 
 	@OneToMany(mappedBy = "redevable")
@@ -51,11 +49,11 @@ public class Redevable{
 		this.nom = nom;
 	}
 
-	public String getType() {
+	public RedevableType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(RedevableType type) {
 		this.type = type;
 	}
 

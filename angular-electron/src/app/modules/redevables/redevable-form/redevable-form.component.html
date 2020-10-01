@@ -1,0 +1,31 @@
+<h1 class="mt-5 mb-5">
+  {{ id == null ? 'Crée un Redevable' : 'Modifier Redevable' }}
+</h1>
+<ngb-alert [hidden]="this.service.errorMessage == ''" type="danger" (close)="this.service.errorMessage = ''">
+  {{ this.service.errorMessage }}</ngb-alert>
+<div [hidden]="!service.isLoading" class="w100 mb-2">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div [hidden]="service.isLoading" *ngIf="service.redevable" class="card-body">
+  <div class="form-group">
+    <label for="exampleName">Nom</label>
+    <input type="text" [(ngModel)]="service.redevable.nom" class="form-control" id="exampleName"
+      placeholder="Enter le nom" />
+  </div>
+  <div class="form-group">
+    <label for="exampleCin">CIN</label>
+    <input type="text" [(ngModel)]="service.redevable.cin" class="form-control" id="exampleCin"
+      placeholder="Enter le CIN" />
+  </div>
+  <div class="form-group">
+    <label for="exampleNameSelect">Type</label>
+    <select [(ngModel)]="service.redevable.type" class="form-control" id="exampleNameSelect">
+      <option value="0">Personne Physique</option>
+      <option value="1">Personne Morale</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-block btn-primary"
+    (click)="save()">{{ id == null ? 'Crée un Redevable' : 'Modifier Redevable' }}</button>
+</div>

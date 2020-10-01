@@ -41,4 +41,9 @@ public class RedevableRest {
     public ResponseEntity<?> read(@PathVariable Long id) {
         return redevableService.read(id);
     }
+    
+    @GetMapping("/data-for-select")
+    public ResponseEntity<?> dataForSelect() {
+        return redevableService.dataForSelect();
+    }
 }

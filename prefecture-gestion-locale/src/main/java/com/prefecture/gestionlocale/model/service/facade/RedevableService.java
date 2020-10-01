@@ -14,4 +14,6 @@ public interface RedevableService {
     ResponseEntity<?> delete(Long id);
 
     ResponseEntity<?> read(Long id);
+    
+    ResponseEntity<?> dataForSelect();
 }
