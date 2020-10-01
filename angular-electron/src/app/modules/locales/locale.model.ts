@@ -8,8 +8,8 @@ export class Locale {
   public ice: string;
   public dernierTrimestreTaxeBoisson: number = 0;
   public dernierAnneeTaxeBoisson: number = 0;
-  public dateCreation: Date;
-  public dateFermeture: Date;
+  public dateCreation: string;
+  public dateFermeture: string;
   public rue: Rue = new Rue();
   public categorie: Categorie = new Categorie();
   public redevable: Redevable = new Redevable();

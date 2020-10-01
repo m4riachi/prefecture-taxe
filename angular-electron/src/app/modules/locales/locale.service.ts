@@ -143,16 +143,21 @@ export class LocaleService {
   }
 
   public findById(id: string) {
-    this.isLoading = true;
-    this.http.get<Response>(this._baseUrl + '/' + id).subscribe(data => {
-      this.isLoading = false;
-      if (data.success) {
-        this.locale = <Locale>data.data;
-      }
-    }, error => {
-      this.isLoading = false;
-      this.errorMessage = error.error.message;
-      console.log(error.error.details);
+    return new Promise((resolve, reject) => {
+      this.isLoading = true;
+      this.http.get<Response>(this._baseUrl + '/' + id).subscribe(data => {
+        this.isLoading = false;
+        if (data.success) {
+          this.locale = <Locale>data.data;
+          this.rueForSelect(this.locale.rue.quartier.id);
+          resolve('succes');
+        }
+      }, error => {
+        this.isLoading = false;
+        this.errorMessage = error.error.message;
+        console.log(error.error.details);
+        error('error');
+      });
     });
   }
 

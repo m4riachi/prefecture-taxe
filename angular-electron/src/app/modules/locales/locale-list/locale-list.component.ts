@@ -9,7 +9,8 @@ import { LocaleService } from "../locale.service";
 export class LocaleListComponent implements OnInit {
   column = [
     { key: 'id', object: false, name: '#', width: 80, search: false },
-    { key: 'categorie', object: true, subKey: 'nom', name: 'categorie', width: 200, search: true },
+    { key: 'categorie', object: true, subKey: 'nom', name: 'categorie', width: 120, search: true },
+    { key: 'redevable', object: true, subKey: 'nom', name: 'redevable', width: 120, search: true },
     { key: 'nom', object: false, name: 'Nom', width: 0, search: true }
   ];
 

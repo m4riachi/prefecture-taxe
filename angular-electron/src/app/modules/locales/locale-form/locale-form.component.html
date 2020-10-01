@@ -47,13 +47,15 @@
   </div>
   <div class="form-group">
     <label for="exampleDateCreation">Date Création</label>
-    <input type="text" [(ngModel)]="service.locale.dateCreation" readonly class="form-control" id="exampleDateCreation"
-      placeholder="Enter la date création" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+    <input type="text" [(ngModel)]="createDate" readonly class="form-control" id="exampleDateCreation"
+      placeholder="Enter la date création" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"
+      (ngModelChange)="dateCreation()">
   </div>
   <div class="form-group">
     <label for="exampleDateCreation">Date Férmeture</label>
-    <input type="text" [(ngModel)]="service.locale.dateFermeture" readonly class="form-control" id="exampleDateCreation"
-      placeholder="Enter la date férmeture" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
+    <input type="text" [(ngModel)]="endDate" readonly class="form-control" id="exampleDateCreation"
+      placeholder="Enter la date férmeture" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
+      (ngModelChange)="dateFermeture()">
   </div>
   <button type="submit" class="btn btn-block btn-primary"
     (click)="save()">{{ id == null ? 'Crée un Locale' : 'Modifier Locale' }}</button>
