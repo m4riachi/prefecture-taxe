@@ -12,12 +12,12 @@ import { Quartier } from "./quartier.model";
   providedIn: 'root'
 })
 export class QuartierService {
-  private _baseUrl: string = '/prefecture-gestion-locale/api/quartiers';
+  private _baseUrl: string = '/api/quartiers';
   private _quartier: Quartier = new Quartier();
   private _list: Array<Quartier>;
   private _pageable: Pageable = new Pageable();
-  private _isLoading:boolean = false;
-  private _errorMessage:string = '';
+  private _isLoading: boolean = false;
+  private _errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient, private constantes: ConstantsService) {
     this._baseUrl = this.constantes.domain.concat(this._baseUrl);
@@ -62,7 +62,7 @@ export class QuartierService {
     this._errorMessage = value;
   }
 
-  public init(){
+  public init() {
     this.quartier = new Quartier();
   }
 
@@ -72,7 +72,7 @@ export class QuartierService {
       this.isLoading = false;
       if (data.success) {
         this.pageable.collectionSize = data.data['totalElements']
-        this.list = <Array<Quartier>> data.data['content'];
+        this.list = <Array<Quartier>>data.data['content'];
       }
       else {
         console.log(data.message.concat(" -- Details : ", data.details))
@@ -85,7 +85,7 @@ export class QuartierService {
     this.http.get<Response>(this._baseUrl + '/' + id).subscribe(data => {
       this.isLoading = false;
       if (data.success) {
-        this.quartier = <Quartier> data.data;
+        this.quartier = <Quartier>data.data;
       }
     }, error => {
       this.router.navigate(['/quartiers']);
@@ -142,7 +142,7 @@ export class QuartierService {
     });
   }
 
-  public dataForSelect (){
+  public dataForSelect() {
     return new Observable((observer) => {
       this.http.get<Response>(this._baseUrl + '/data-for-select').subscribe(data => {
         observer.next(data.data);

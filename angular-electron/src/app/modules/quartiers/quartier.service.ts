@@ -12,7 +12,7 @@ import { Quartier } from "./quartier.model";
   providedIn: 'root'
 })
 export class QuartierService {
-  private _baseUrl: string = '/prefecture-gestion-locale/api/quartiers';
+  private _baseUrl: string = '/api/quartiers';
   private _quartier: Quartier = new Quartier();
   private _list: Array<Quartier>;
   private _pageable: Pageable = new Pageable();

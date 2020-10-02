@@ -14,4 +14,6 @@ public interface LocaleService {
     ResponseEntity<?> delete(Long id);
 
     ResponseEntity<?> read(Long id);
+    
+    ResponseEntity<?> iceCin(String search);
 }

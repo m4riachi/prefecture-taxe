@@ -12,12 +12,12 @@ import { Categorie } from "./categorie.model";
   providedIn: 'root'
 })
 export class CategorieService {
-  private _baseUrl: string = '/prefecture-gestion-locale/api/categories';
+  private _baseUrl: string = '/api/categories';
   private _categorie: Categorie = new Categorie();
   private _list: Array<Categorie>;
   private _pageable: Pageable = new Pageable();
-  private _isLoading:boolean = false;
-  private _errorMessage:string = '';
+  private _isLoading: boolean = false;
+  private _errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient, private constantes: ConstantsService) {
     this._baseUrl = this.constantes.domain.concat(this._baseUrl);
@@ -62,7 +62,7 @@ export class CategorieService {
     this._errorMessage = value;
   }
 
-  public init(){
+  public init() {
     this.categorie = new Categorie();
   }
 
@@ -72,7 +72,7 @@ export class CategorieService {
       this.isLoading = false;
       if (data.success) {
         this.pageable.collectionSize = data.data['totalElements']
-        this.list = <Array<Categorie>> data.data['content'];
+        this.list = <Array<Categorie>>data.data['content'];
       }
       else {
         console.log(data.message.concat(" -- Details : ", data.details))
@@ -85,7 +85,7 @@ export class CategorieService {
     this.http.get<Response>(this._baseUrl + '/' + id).subscribe(data => {
       this.isLoading = false;
       if (data.success) {
-        this.categorie = <Categorie> data.data;
+        this.categorie = <Categorie>data.data;
       }
     }, error => {
       this.isLoading = false;
@@ -100,7 +100,7 @@ export class CategorieService {
     this.http.post<Response>(this._baseUrl + '/', this.categorie).subscribe(data => {
       this.isLoading = false;
       if (data.success) {
-        this.router.navigate(['/categories']);
+        this.findAll();
       }
       else {
         this.errorMessage = data.message;
@@ -150,7 +150,7 @@ export class CategorieService {
     });
   }
 
-  public dataForSelect (){
+  public dataForSelect() {
     return new Observable((observer) => {
       this.http.get<Response>(this._baseUrl + '/data-for-select').subscribe(data => {
         observer.next(data.data);

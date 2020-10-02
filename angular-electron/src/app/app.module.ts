@@ -28,6 +28,7 @@ import { RuesModule } from './modules/rues/rues.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { RedevablesModule } from './modules/redevables/redevables.module';
 import { LocalesModule } from './modules/locales/locales.module';
+import { BoissonsModule } from './modules/taxes/boissons/boissons.module';
 
 
 // AoT requires an exported function for factories
@@ -64,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BoissonsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true }

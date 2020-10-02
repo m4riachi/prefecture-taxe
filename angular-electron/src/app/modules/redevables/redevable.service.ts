@@ -12,7 +12,7 @@ import { Redevable } from "./redevable.model";
   providedIn: 'root'
 })
 export class RedevableService {
-  private _baseUrl: string = '/prefecture-gestion-locale/api/redevables';
+  private _baseUrl: string = '/api/redevables';
   private _redevable: Redevable = new Redevable();
   private _list: Array<Redevable>;
   private _pageable: Pageable = new Pageable();

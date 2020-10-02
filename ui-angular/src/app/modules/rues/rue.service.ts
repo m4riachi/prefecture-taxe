@@ -7,8 +7,8 @@ import { Pageable } from "../../utilities/pageable.model";
 import { Observable } from "rxjs";
 
 import { Rue } from "./rue.model";
-import {Quartier} from "../quartiers/quartier.model";
-import {QuartierService} from "../quartiers/quartier.service";
+import { Quartier } from "../quartiers/quartier.model";
+import { QuartierService } from "../quartiers/quartier.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,10 @@ export class RueService {
   private _list: Array<Rue>;
   private _listQuartier: Array<Quartier>;
   private _pageable: Pageable = new Pageable();
-  private _isLoading:boolean = false;
-  private _errorMessage:string = '';
+  private _isLoading: boolean = false;
+  private _errorMessage: string = '';
 
-  constructor(private router: Router, private http: HttpClient, private constantes: ConstantsService, private quartierService:QuartierService) {
+  constructor(private router: Router, private http: HttpClient, private constantes: ConstantsService, private quartierService: QuartierService) {
     this.baseUrl = this.constantes.domain.concat(this.baseUrl);
   }
 
@@ -82,7 +82,7 @@ export class RueService {
     this._listQuartier = value;
   }
 
-  public init(){
+  public init() {
     this.rue = new Rue();
   }
 
@@ -92,7 +92,7 @@ export class RueService {
       this.isLoading = false;
       if (data.success) {
         this.pageable.collectionSize = data.data['totalElements']
-        this.list = <Array<Rue>> data.data['content'];
+        this.list = <Array<Rue>>data.data['content'];
       }
       else {
         console.log(data.message.concat(" -- Details : ", data.details))
@@ -105,7 +105,7 @@ export class RueService {
     this.http.get<Response>(this._baseUrl + '/' + id).subscribe(data => {
       this.isLoading = false;
       if (data.success) {
-        this.rue = <Rue> data.data;
+        this.rue = <Rue>data.data;
       }
     }, error => {
       this.isLoading = false;
@@ -170,11 +170,19 @@ export class RueService {
     });
   }
 
-  public quartierForSelect (){
+  public quartierForSelect() {
     this.isLoading = true;
     this.quartierService.dataForSelect().subscribe(data => {
       this.isLoading = false;
-      this.listQuartier = <Array<Quartier>> data['value'];
+      this.listQuartier = <Array<Quartier>>data['value'];
+    });
+  }
+
+  public dataForSelect(quartierId) {
+    return new Observable((observer) => {
+      this.http.get<Response>(this._baseUrl + '/data-for-select/' + quartierId + '/quartier').subscribe(data => {
+        observer.next(data.data);
+      });
     });
   }
 }

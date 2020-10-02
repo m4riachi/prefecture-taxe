@@ -1,0 +1,47 @@
+<h1 class="mt-5 mb-5">
+  Chercher un Locale
+</h1>
+<div class="card-body">
+  <div class="form-group">
+    <label for="exampleName">Redevable CIN / Locale ICE</label>
+    <input type="text" [(ngModel)]="service.search" class="form-control" id="exampleName" placeholder="CIN / ICE" />
+  </div>
+  <button type="submit" class="btn btn-block btn-primary" (click)="search()">Chercher</button>
+</div>
+<ngb-alert [hidden]="this.service.errorMessage == ''" type="danger" (close)="this.service.errorMessage = ''">
+  {{ this.service.errorMessage }}</ngb-alert>
+<div [hidden]="!service.isLoading" class="w100 mb-2">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="card-body">
+  <table class="table table-striped" *ngIf="service.listLocale">
+    <thead>
+      <tr>
+        <th width="130px">Redevable</th>
+        <th>Locale</th>
+        <th width="160px">Last Payment</th>
+        <th scope="col" width="80px" align="center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of service.listLocale; index as i">
+        <td>
+          {{item.redevable.nom}}
+        </td>
+        <td>
+          {{item.nom}}
+        </td>
+        <td>
+          <span *ngIf="item.dernierTrimestreTaxeBoisson > 0">
+            {{item.dernierTrimestreTaxeBoisson}} semestre {{item.dernierAnneeTaxeBoisson}}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-warning" (click)="getImpayer(i)"><i class="fa fa-arrow-right"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

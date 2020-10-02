@@ -8,6 +8,7 @@ import com.prefecture.gestionlocale.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class LocaleImpl implements LocaleService {
     }
 
     public ResponseEntity<?> create(Locale locale){
-        if (localeDao.countByNom(locale.getNom()) > 0)
+        if (localeDao.countByIce(locale.getIce()) > 0)
             return helper.response(HttpStatus.OK, false, "validation.entity.unique");
 
         localeDao.save(locale);
@@ -49,7 +50,7 @@ public class LocaleImpl implements LocaleService {
     public ResponseEntity<?> update(Locale locale){
         checkId(locale.getId());
 
-        if (localeDao.countByNomAndIdNot(locale.getNom(), locale.getId()) > 0)
+        if (localeDao.countByIceAndIdNot(locale.getIce(), locale.getId()) > 0)
             return helper.response(HttpStatus.OK, false, "validation.entity.unique");
 
         localeDao.save(locale);
@@ -68,5 +69,10 @@ public class LocaleImpl implements LocaleService {
 
     public ResponseEntity<?> read(Long id) {
         return helper.response(HttpStatus.OK, true, checkId(id));
+    }
+    
+    public ResponseEntity<?> iceCin(String search) {
+        return helper.response(HttpStatus.OK, true,
+                helper.objectFilter("LocaleFilter", localeDao.findByIceOrRedevableCinOrderByNom(search, search), "id", "nom") );
     }
 }

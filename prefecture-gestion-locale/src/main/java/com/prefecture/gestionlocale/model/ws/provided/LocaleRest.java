@@ -41,4 +41,9 @@ public class LocaleRest {
     public ResponseEntity<?> read(@PathVariable Long id) {
         return localeService.read(id);
     }
+    
+    @GetMapping("/{search}/ice-cin")
+    public ResponseEntity<?> read(@PathVariable String search) {
+        return localeService.iceCin(search);
+    }
 }

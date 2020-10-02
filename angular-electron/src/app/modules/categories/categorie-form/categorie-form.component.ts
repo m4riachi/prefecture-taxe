@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategorieService} from "../categorie.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { CategorieService } from "../categorie.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-categorie-form',
@@ -23,7 +23,7 @@ export class CategorieFormComponent implements OnInit {
     }
   }
 
-  save(){
+  save() {
     if (this.service.categorie.id == 0) this.service.save();
     else this.service.update();
   }

@@ -1,3 +1,23 @@
 <h1 class="mt-5 mb-5">Liste des Catégories</h1>
 
 <app-pageable-list [service]="service" [column]="column" baseuri="categories"></app-pageable-list>
+
+<h1 class="mt-5 mb-5">
+  {{ id == null ? 'Crée une Catégorie' : 'Modifier Catégorie' }}
+</h1>
+<ngb-alert [hidden]="this.service.errorMessage == ''" type="danger" (close)="this.service.errorMessage = ''">
+  {{ this.service.errorMessage }}</ngb-alert>
+<div [hidden]="!service.isLoading" class="w100 mb-2">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div [hidden]="service.isLoading" *ngIf="service.categorie" class="card-body">
+  <div class="form-group">
+    <label for="exampleName">Nom</label>
+    <input type="text" [(ngModel)]="service.categorie.nom" class="form-control" id="exampleName"
+      placeholder="Enter le nom" />
+  </div>
+  <button type="submit" class="btn btn-block btn-primary"
+    (click)="save()">{{ id == null ? 'Crée une Catégorie' : 'Modifier Catégorie' }}</button>
+</div>

@@ -1,34 +1,40 @@
-<a [routerLink]="['create']" routerLinkActive="active" class="btn btn-success mb-5"><i class="fa fa-plus"></i> Ajouter un nouvel élément</a>
+<a [routerLink]="['/categories']" routerLinkActive="active" class="btn btn-success mb-5"><i class="fa fa-plus"></i>
+  Ajouter un
+  nouvel élément</a>
 
 <div class="form-group form-inline">
-  Full text search: <input class="form-control ml-2 mr-2" type="text" [(ngModel)]="filter" (keyup)="search()"/>
+  Full text search: <input class="form-control ml-2 mr-2" type="text" [(ngModel)]="filter" (keyup)="search()" />
   <div [hidden]="!service.isLoading" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
 </div>
 <table class="table table-striped">
   <thead>
-  <tr>
-    <th *ngFor="let c of column" scope="col" [width]="c['width']" (click)="sort(c['key'])" [className]="service.pageable.sort == c['key'] ? service.pageable.direction : ''">{{ c['name'] }}</th>
-    <th scope="col" width="130px" align="center">Action</th>
-  </tr>
+    <tr>
+      <th *ngFor="let c of column" scope="col" [width]="c['width']" (click)="sort(c['key'])"
+        [className]="service.pageable.sort == c['key'] ? service.pageable.direction : ''">{{ c['name'] }}</th>
+      <th scope="col" width="130px" align="center">Action</th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let item of service['list']; index as i">
-    <td *ngFor="let c of column">
-      {{ (!c['search']) ? item[c['key']] : ''}}
-      <ngb-highlight *ngIf="c['search'] && !c['object']" [result]="item[c['key']]" [term]="filter"></ngb-highlight>
-      <ngb-highlight *ngIf="c['search'] && c['object']" [result]="item[c['key']][c['subKey']]" [term]="filter"></ngb-highlight>
-    </td>
-    <td>
-      <a [routerLink]="['/' + baseuri , item['id'], 'edit']" routerLinkActive="active" class="btn btn-warning mr-2"><i class="fa fa-edit"></i></a>
-      <button  (click)="delete(item['id'])" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-    </td>
-  </tr>
+    <tr *ngFor="let item of service['list']; index as i">
+      <td *ngFor="let c of column">
+        {{ (!c['search']) ? item[c['key']] : ''}}
+        <ngb-highlight *ngIf="c['search'] && !c['object']" [result]="item[c['key']]" [term]="filter"></ngb-highlight>
+        <ngb-highlight *ngIf="c['search'] && c['object']" [result]="item[c['key']][c['subKey']]" [term]="filter">
+        </ngb-highlight>
+      </td>
+      <td>
+        <a [routerLink]="['/' + baseuri , item['id'], 'edit']" routerLinkActive="active" class="btn btn-warning mr-2"><i
+            class="fa fa-edit"></i></a>
+        <button (click)="delete(item['id'])" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
   </tbody>
 </table>
 <div class="d-flex justify-content-between p-2">
-  <ngb-pagination [collectionSize]="service.pageable.collectionSize" [(page)]="service.pageable.page" [pageSize]="service.pageable.pageSize" (pageChange)="findAll()">
+  <ngb-pagination [collectionSize]="service.pageable.collectionSize" [(page)]="service.pageable.page"
+    [pageSize]="service.pageable.pageSize" (pageChange)="findAll()">
   </ngb-pagination>
 
   <select class="custom-select" style="width: auto" [(ngModel)]="service.pageable.pageSize" (ngModelChange)="findAll()">

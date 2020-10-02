@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ConstantsService} from "../../../utilities/constants.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ConstantsService } from "../../../utilities/constants.service";
 import * as _ from 'lodash';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -23,9 +23,9 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
   `
 })
 export class NgbdModalConfirmAutofocus {
-  constructor(public modal: NgbActiveModal) {}
+  constructor(public modal: NgbActiveModal) { }
 
-  close(){
+  close() {
     this.modal.close('close');
   }
 }
@@ -41,7 +41,7 @@ export class PageableListComponent implements OnInit {
   @Input() baseuri;
   filter = '';
 
-  constructor(public constantes:ConstantsService, private _modalService: NgbModal) { }
+  constructor(public constantes: ConstantsService, private _modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.findAll();
@@ -59,11 +59,11 @@ export class PageableListComponent implements OnInit {
   }
 
   debouncing = _.debounce(() => this.findAll(), 300);
-  search(){
+  search() {
     this.debouncing();
   }
 
-  delete(id){
+  delete(id) {
     this._modalService.open(NgbdModalConfirmAutofocus).result.then(data => {
       if (data == 'close') {
         this.service.delete(id);

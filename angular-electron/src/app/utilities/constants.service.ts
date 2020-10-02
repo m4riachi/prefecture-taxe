@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConstantsService {
-  private _domain:string = "http://localhost:8765";
+  private _domain: string = "http://localhost:8000";
   private _itemPerPage = [25, 50, 100];
 
   constructor() { }

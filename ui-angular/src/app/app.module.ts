@@ -1,26 +1,52 @@
+import 'reflect-metadata';
+import '../polyfills';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
+
+// NG Translate
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { HomeModule } from './home/home.module';
+import { DetailModule } from './detail/detail.module';
+
 import { AppComponent } from './app.component';
 
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HttpIntercepterBasicAuthService} from "./utilities/http-intercepter-basic-auth.service";
+import { HttpIntercepterBasicAuthService } from "./utilities/http-intercepter-basic-auth.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { QuartiersModule } from './modules/quartiers/quartiers.module';
 import { IncludesModule } from "./modules/includes/includes.module";
 import { RuesModule } from './modules/rues/rues.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { RedevablesModule } from './modules/redevables/redevables.module';
 import { LocalesModule } from './modules/locales/locales.module';
+import { BoissonsModule } from './modules/taxes/boissons/boissons.module';
+
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    CoreModule,
+    SharedModule,
+    HomeModule,
+    DetailModule,
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -32,13 +58,18 @@ import { LocalesModule } from './modules/locales/locales.module';
     RuesModule,
     CategoriesModule,
     RedevablesModule,
-    LocalesModule
+    LocalesModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    BoissonsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true}
-  ],
-  exports: [
-
+    { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

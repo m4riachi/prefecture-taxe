@@ -21,7 +21,7 @@ import { CategorieService } from "../categories/categorie.service";
   providedIn: 'root'
 })
 export class LocaleService {
-  private _baseUrl: string = '/prefecture-gestion-locale/api/locales';
+  private _baseUrl: string = '/api/locales';
   private _locale: Locale;
   private _list: Array<Locale>;
 
@@ -246,6 +246,14 @@ export class LocaleService {
     this.rueService.dataForSelect(quartierId).subscribe(data => {
       this.isLoading = false;
       this.listRue = <Array<Rue>>data['value'];
+    });
+  }
+
+  public dataForTaxe(search: string) {
+    return new Observable((observer) => {
+      this.http.get<Response>(this._baseUrl + '/' + search + '/ice-cin').subscribe(data => {
+        observer.next(data.data);
+      });
     });
   }
 }
